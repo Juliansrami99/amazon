@@ -571,15 +571,23 @@ todos_numero<-function(vec,numero){
   
 }
 
-tablas_original<-todos_numero(c("MSFT","TSLA"),1)
+
+vec<-c("MSFT","TSLA")
+tablas_original<-todos_numero(vec,1)
 
 lista_accion<-normal_indicador(tablas_original)
 
 
+
 con <- dbConnect(drv     = RMySQL::MySQL(),
-                username = "macrowised",
-                password = "macrowised",
-                host     = "macrowised.c8rej9nslv8v.us-east-2.rds.amazonaws.com",
-                port     = 3306)
+                username = "macro",
+                password = "macrowise",
+                host     = "macro.c8rej9nslv8v.us-east-2.rds.amazonaws.com",
+                port     = 3306,
+		dbname   = "macrowise")  
+
+for (i in 1:length(lista_accion)){
+  dbWriteTable(con,vec[i], lista_accion[[i]])
+} 
 
 dbDisconnect(con)
