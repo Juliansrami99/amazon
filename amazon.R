@@ -976,7 +976,7 @@ todos_numero<-function(vec,numero){
 
 
 ########### Proceso ###########
-tabla=read_xlsx("/spy/tickers.xlsx")
+tabla=read_xlsx("spy/tickers.xlsx")
 vec<-as.vector(tabla$TICKERS)
 
 tablas_original<-todos_numero(vec,1)
