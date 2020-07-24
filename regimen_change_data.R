@@ -518,6 +518,66 @@ reversion_media_scale<-function(tabla){
 ##### todos: Funcion mas importante #####
 
 
+todos<-function(vec){
+  total=list()
+  for(j in 1:length(vec)){
+    tryCatch({a=getSymbols(vec[j],src="yahoo",from="1927-12-30",auto.assign=FALSE,env = NULL)
+    },error=function(e)NA)
+    total[[j]]<-a
+    
+  }
+  precios=list()
+  for (i in 1:length(total)){
+    b=convertir(total[[i]])
+    precios[[i]]<-b
+  }
+  drawdowns=list()
+  for (u in 1:length(precios)){
+    precios[[u]]=na.omit(precios[[u]])
+    c=drawdowns_j(precios[[u]])
+    drawdowns[[u]]<-c
+  }
+  defini=list()
+  for (u in 1:length(drawdowns)){
+    drawdowns[[u]]=na.omit(drawdowns[[u]])
+    c=dup2(drawdowns[[u]])
+    ultima_actua=medida(c)
+    defini[[u]]<-ultima_actua
+  }
+  return(defini)
+}
+
+todos_numero<-function(vec,numero){
+  total=list()
+  for(j in 1:length(vec)){
+    tryCatch({a=getSymbols(vec[j],src="yahoo",from="1927-12-30",auto.assign=FALSE,env = NULL)
+    },error=function(e)NA)
+    total[[j]]<-a
+    
+  }
+  precios=list()
+  for (i in 1:length(total)){
+    b=convertir(total[[i]])
+    precios[[i]]<-b
+  }
+  drawdowns=list()
+  for (u in 1:length(precios)){
+    precios[[u]]=na.omit(precios[[u]])
+    c=drawdowns_j(precios[[u]])
+    drawdowns[[u]]<-c
+  }
+  defini=list()
+  for (u in 1:length(drawdowns)){
+    drawdowns[[u]]=na.omit(drawdowns[[u]])
+    c=dup_con_numero(drawdowns[[u]],numero)
+    ultima_actua=medida(c)
+    defini[[u]]<-ultima_actua
+  }
+  return(defini)
+  
+}
+
+
 ##########################################
 # Creacion de maximos 
 ##########################################
