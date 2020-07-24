@@ -11,6 +11,15 @@ require(reshape2)
 library(data.table)
 library(DT)
 
+
+
+columna_agregar<-function(lista){
+  for (i in 1:length(lista)){
+    lista[[i]]<-lista[[i]] %>% mutate("EWH"=rep(NA,nrow(lista[[i]])))
+  }
+  return(lista)
+}
+
 convertir<-function(tabla){
   dias=as.data.frame(index(tabla))
   nueva=as.data.frame(tabla)
@@ -616,12 +625,27 @@ prueba_maximos<-function(tabla){
 
 
 #### Mundo ####
-tabla=read_xlsx("Mundo.xlsx")
-vec<-as.vector(tabla$TICKERS)
+# tabla=read_xlsx("Mundo.xlsx")
+# vec<-as.vector(tabla$TICKERS)
+# 
+# tablas_original<-todos_numero(vec,1)
+# 
+# lista_accion<-normal_indicador(tablas_original)
 
-tablas_original<-todos_numero(vec,1)
 
-lista_accion<-normal_indicador(tablas_original)
+#### EWH ###
+tabla2=read_xlsx("ewh.xlsx")
+vec2<-as.vector(tabla2$TICKERS)
+
+
+tablas_original2<-todos_numero(vec2,1)
+
+lista_accion2<-normal_indicador(tablas_original2)
+
+lista_accion2<-columna_agregar(lista_accion2)
+
+
+
 
 con <- dbConnect(drv     = RMySQL::MySQL(),
                  username = "macro",
@@ -630,8 +654,15 @@ con <- dbConnect(drv     = RMySQL::MySQL(),
                  port     = 3306,
                  dbname   = "macrowise")  
 
+# 
+# for (i in 1:length(lista_accion)){
+#    dbWriteTable(con,vec[i], lista_accion[[i]])
+# } 
 
-for (i in 1:length(lista_accion)){
-   dbWriteTable(con,vec[i], lista_accion[[i]])
+
+for (i in 1:length(lista_accion2)){
+  dbWriteTable(con,vec2[i], lista_accion2[[i]])
 } 
+
+
 dbDisconnect(con)

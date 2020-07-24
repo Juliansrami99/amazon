@@ -30,6 +30,12 @@ library(DT)
 
 
 
+columna_agregar<-function(lista){
+  for (i in 1:length(lista)){
+    lista[[i]]<-lista[[i]] %>% mutate("EWH"=rep(NA,nrow(lista[[i]])))
+  }
+  return(lista)
+}
 
 convertir<-function(tabla){
   dias=as.data.frame(index(tabla))

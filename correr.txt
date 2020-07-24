@@ -1,0 +1,86 @@
+con <- dbConnect(drv     = RMySQL::MySQL(),
+                username = "macrowised",
+                password = "macrowised",
+                host     = "macrowised.c8rej9nslv8v.us-east-2.rds.amazonaws.com",
+                port     = 3306,
+		dbname ="")
+
+dbWriteTable(conn = con,
+            name = "tweets",
+            value = lista_accion[[1]]$DRAWDOWNS,
+            append = TRUE)
+
+ec2-18-217-213-185.us-east-2.compute.amazonaws.com,18.217.213.185  
+
+my_db=src_mysql(
+		host="macrowised.c8rej9nslv8v.us-east-2.rds.amazonaws.com",
+		port=3306,
+		user="macrowised",
+		password="macrowised")   
+
+
+con <- dbConnect(drv     = RMySQL::MySQL(),
+                username = "macro",
+                password = "macrowise",
+                host     = "macro.c8rej9nslv8v.us-east-2.rds.amazonaws.com",
+                port     = 3306,
+		dbname   = "macrowise")      
+
+                                         
+git@github.com:Juliansrami99/amazon.git 
+
+mysql -h macro.c8rej9nslv8v.us-east-2.rds.amazonaws.com -u macro -p     
+password: macrowise
+
+# solicitar base de datos en ec2
+mysqldump -h macro.c8rej9nslv8v.us-east-2.rds.amazonaws.com -u macro -p macrowise > HOLA.sql
+
+# show tables
+
+mysqldump -u macro -p --host=macro.c8rej9nslv8v.us-east-2.rds.amazonaws.com macrowise -e show tables
+
+########### COMANDO CLAVE ##########3
+mysql -u macro -p --host=macro.c8rej9nslv8v.us-east-2.rds.amazonaws.com macrowise --port=3306 --batch --quick -e "SELECT * FROM spy_kafka" | sed 's/\t/","/g;s/^/"/;s/$/"/;s/\n//g' > spy_kafka.csv
+
+
+mysql -u macro -p --host=macro.c8rej9nslv8v.us-east-2.rds.amazonaws.com macrowise --port=3306 -e "SHOW TABLES;"
+
+
+
+
+for tb in $(mysql -u macro -p macrowise --host=macro.c8rej9nslv8v.us-east-2.rds.amazonaws.com macrowise --port=3306 -e "SHOW TABLES;"); do
+    mysql -B -u macro -p --host=macro.c8rej9nslv8v.us-east-2.rds.amazonaws.com macrowise --port=3306 -e "SELECT * $tb;" \ | sed "s/\"/\"\"/g;s/'/\'/;s/\t/\",\"/g;s/^/\"/;s/$/\"/;s/\n//g" > $tb.csv
+done
+
+
+for tb in $(mysql -u macro -p --host=macro.c8rej9nslv8v.us-east-2.rds.amazonaws.com macrowise --port=3306 -e "SHOW TABLES;"); do
+    $tb;
+done
+
+ ######### COMANDO PARA DESCARGAR TODO #######
+
+for tb in $(mysql -u macro -p --host=macro.c8rej9nslv8v.us-east-2.rds.amazonaws.com macrowise --port=3306 -e "SHOW TABLES;"); do
+   $(mysql -B -u macro -p --host=macro.c8rej9nslv8v.us-east-2.rds.amazonaws.com macrowise --port=3306 -e "SELECT * FROM $tb;" \
+ | sed "s/\"/\"\"/g;s/'/\'/;s/\t/\",\"/g;s/^/\"/;s/$/\"/;s/\n//g" > $tb.csv)
+
+done
+
+########## Comandos my sql #####
+
+show databases; # para mostrar las bases de datos que hay
+use macrowise; # para usar esta base de datos
+show tables; # para mostrar las tablas que hay en las base de datos
+\ # salir de mysql    
+
+mysql -u macro -p --host=macro.c8rej9nslv8v.us-east-2.rds.amazonaws.com macrowise --port=3306 -e "select * from INFORMATION_SCHEMA.COLUMNS WHERE
+	column_name = 'DATES';"
+
+
+
+###### Conexion a S3 #######
+sudo aws s3 cp spy_kafka.csv s3://macrowisecolombia/bases/regimen_change/
+
+sudo aws s3 sync prueba s3://macrowisecolombia/bases/regimen_change/Mundo/
+
+wget s3://macrowisecolombia/bases/MSFT.csv
+          
