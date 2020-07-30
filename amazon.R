@@ -1084,7 +1084,7 @@ con <- dbConnect(drv     = RMySQL::MySQL(),
 		dbname   = "macrowise")
 
 for (i in 1:length(lista_accion)){
-   dbWriteTable(con,paste0(vec[i],"_spy"), lista_accion[[i]])
+   dbWriteTable(con,paste0(vec[i],"uspy"), lista_accion[[i]])
 }
 
 
