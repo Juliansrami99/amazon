@@ -83,7 +83,7 @@ drawups<-function(tabla){
   drawup=vector(,nrow(tabla))
   drawup[1]<-0
   for (i in 1:nrow(tabla)){
-     pru=(1/(1-tabla$DRAWDOWNS[i]))-1 
+     pru=(1/(1-tabla$DRAWDOWNS[i]))-1
   }
   total=cbind(tabla,drawup,mini,maxi,tem)
   colnames(total)=c("DATES","RETORNOS","VOLUMEN","DRAWDOWNS","PRECIO","DRAWUPS","MINIMOS",
@@ -361,7 +361,7 @@ cocientes<-function(tabla_stock,tabla_creada){
             }
           }
         }
-      } 
+      }
     }
   }
   nueva=cbind(tabla_creada,coc)
@@ -413,7 +413,7 @@ maximos_stock<-function(tabla,numero){
       if (logicos[i]==F){
         if(tabla$DRAWDOWNS[i]>=numero){
           j=i+1
-          while(!is.null(tabla$DRAWDOWNS[j]) && !is.na(tabla$DRAWDOWNS[j]) 
+          while(!is.null(tabla$DRAWDOWNS[j]) && !is.na(tabla$DRAWDOWNS[j])
                 && (tabla$DRAWDOWNS[j]>=tabla$DRAWDOWNS[(j-1)])){
             j=j+1
           }
@@ -421,7 +421,7 @@ maximos_stock<-function(tabla,numero){
           maximos<-c(maximos,tabla$PRECIO[u])
           maximos_dias[u]<-tabla$PRECIO[u]
           logicos[u]<-T
-        } 
+        }
       }
     }
     ba=data.frame("DATES"=tabla$DATES,"PRECIO"=tabla$PRECIO,"PRECIO_MAX"=maximos_dias)
@@ -545,7 +545,7 @@ reversion_media_scale<-function(tabla){
 
 
 ##########################################
-# Creacion de maximos 
+# Creacion de maximos
 ##########################################
 
 prueba_maximos<-function(tabla){
@@ -566,13 +566,13 @@ prueba_maximos<-function(tabla){
         pr$DRAW_MIN[i]=NA
       }
     }
-    
+
     # Agrego a pr el tiempo que se demora en encontrar otro maximo
     pr=tiempo_entre_maximos(pr)
     lista_total[[j]]<-pr
   }
   return(lista_total)
-  
+
 }
 
 
@@ -648,18 +648,18 @@ clasificacion_maximos<-function(tabla,tabla_maximos,fecha_inicio,fecha_final){
   # filtro la tabla historica del stock por fecha inicial y fecha final
   #tabla_temporal=tabla %>% filter(DATES>=fecha_inicio & DATES<=fecha_final)
   tabla_temporal_maximos=tabla_maximos %>% filter(DATES>=fecha_inicio & DATES<=fecha_final)
-  
+
   # Crear una nueva variable que solo tenga el ao de los dias
   tabla_temporal_maximos=tabla_temporal_maximos %>% mutate("YEAR"=as.numeric(format(DATES,'%Y')))
-  
+
   casos=vector(,8)
-  
+
   ###### Paso uno: cuantos maximos hay ####
   num_maximos_historicos=tabla_maximos %>% filter(!is.na(PRECIO_MAX))
   num_maximos=tabla_temporal_maximos %>% filter(!is.na(PRECIO_MAX))
   n_maxi=nrow(num_maximos)
   n_maxi_historico=nrow(num_maximos_historicos)
-  
+
   ##########################################
   if (n_maxi_historico==0){
     dato_an=0
@@ -687,7 +687,7 @@ clasificacion_maximos<-function(tabla,tabla_maximos,fecha_inicio,fecha_final){
     tabla_inicial=tabla_temporal_maximos %>% filter(DATES<year_m)
     # Tabla de datos despues de esa fecha
     tabla_final=tabla_temporal_maximos %>% filter(DATES>=year_m)
-    # Numero de maximos de la tabla inicial 
+    # Numero de maximos de la tabla inicial
   }
   num_maximos_inicial=tabla_inicial %>% filter(!is.na(PRECIO_MAX))
   n_maxi_inicial=nrow(num_maximos_inicial)
@@ -745,7 +745,7 @@ clasificacion_maximos<-function(tabla,tabla_maximos,fecha_inicio,fecha_final){
         else if (distancia>mean(a$tama) & distancia<dato_an2){
           casos[1]=10
           casos[2]=40
-        } 
+        }
       }
       else{
         if (distancia>=dato_an){
@@ -760,8 +760,8 @@ clasificacion_maximos<-function(tabla,tabla_maximos,fecha_inicio,fecha_final){
           casos[1]=10
           casos[2]=25
           casos[3]=15
-        } 
-        
+        }
+
       }
     }
   }
@@ -776,7 +776,7 @@ clasificacion_reversion<-function(tabla,fecha_inicio,fecha_final){
   positivos=tabla_temp %>% filter(SCALE>=0)
   negativos=tabla_temp %>% filter(SCALE<0)
   casos=vector(,8)
-  # # Ao inicial 
+  # # Ao inicial
   # year_1=as.numeric(format(as.Date(fecha_inicio),'%Y'))
   # # Ao final
   # year_2=as.numeric(format(as.Date(fecha_final),'%Y'))
@@ -790,11 +790,11 @@ clasificacion_reversion<-function(tabla,fecha_inicio,fecha_final){
   tabla_final=tabla_temp %>% filter(DATES>=year_m)
   # Positivos y negativos de cada de las tablas
   # positivos_inicial=tabla_inicial %>% filter(SCALE>=0)
-  # 
+  #
   # negativos_inicial=tabla_inicial %>% filter(SCALE<0)
-  # 
+  #
   # positivos_final=tabla_final %>% filter(SCALE>=0)
-  # 
+  #
   # negativos_final=tabla_final %>% filter(SCALE<0)
   # regresion de los dos aos
   if (tabla$DATES[1]>fecha_inicio){
@@ -804,26 +804,26 @@ clasificacion_reversion<-function(tabla,fecha_inicio,fecha_final){
   }
   else{
     w=lm(tabla_temp$SCALE~tabla_temp$DATES,tabla_temp)
-    
+
     # regresion primer ao
     w1=lm(tabla_inicial$SCALE~tabla_inicial$DATES,tabla_temp)
-    
+
     # regresion segundo ao
     w2=lm(tabla_final$SCALE~tabla_final$DATES,tabla_temp)
   }
-  
+
   # todos los datos de la tabla son positivos?
   if (nrow(positivos)==nrow(tabla_temp)){
     # tabla_media=tabla_temp %>% mutate("MINORS"=ifelse(REVERSION<=media_reversion,1,0))
     # ceros_tabla_media=tabla_media %>% filter(MINORS==1)
     if(w$coefficients[2]<0.001 & w$coefficients[2]>(-0.001)){
-      casos[1]=50+casos[1] 
+      casos[1]=50+casos[1]
     }
     else if (w1$coefficients[2]<(-0.001) & w2$coefficients[2]<(-0.001)){
-      casos[2]=50+casos[2] 
+      casos[2]=50+casos[2]
     }
     else if (w1$coefficients[2]>(0.001) & w2$coefficients[2]>(0.001)){
-      casos[8]=50+casos[8] 
+      casos[8]=50+casos[8]
     }
     else if (w1$coefficients[2]>(0.001) & w2$coefficients[2]<(-0.001)){
       casos[2]=40+casos[2]
@@ -954,7 +954,7 @@ todos_numero<-function(vec,numero){
     tryCatch({a=getSymbols(vec[j],src="yahoo",from="1927-12-30",auto.assign=FALSE,env = NULL)
     },error=function(e)NA)
     total[[j]]<-a
-    
+
   }
   precios=list()
   for (i in 1:length(total)){
@@ -975,35 +975,35 @@ todos_numero<-function(vec,numero){
     defini[[u]]<-ultima_actua
   }
   return(defini)
-  
+
 }
 
 
 
 
 ########### Proceso ###########
-tabla=read_xlsx("tickers.xlsx")
+tabla=read_xlsx("spy.xlsx")
 vec<-as.vector(tabla$TICKERS)
 
 tablas_original<-todos_numero(vec,1)
 
 lista_accion<-normal_indicador(tablas_original)
 
-pru=prueba_maximos(tablas_original)
+#pru=prueba_maximos(tablas_original)
 
 ### tablas reversion a la media ###
-listas_tab<-lista_tabla_tab(lista_accion)
+#listas_tab<-lista_tabla_tab(lista_accion)
 
 
 ### Ejecucion kafka ###
-lista_resultados=list()
-for (i in 1:length(tablas_original)){
-  print(i)
-  b=clasificacion_kafka(listas_tab[[i]],pru[[i]],"2018-05-25","2020-05-25")
-  lista_resultados[[i]]<-b
-}
+# lista_resultados=list()
+# for (i in 1:length(tablas_original)){
+#   print(i)
+#   b=clasificacion_kafka(listas_tab[[i]],pru[[i]],"2018-05-25","2020-05-25")
+#   lista_resultados[[i]]<-b
+# }
 
-final=crear_tabla_resumen(lista_resultados,vec)
+#final=crear_tabla_resumen(lista_resultados,vec)
 
 
 columna_estado=function(tabla){
@@ -1020,7 +1020,7 @@ columna_estado=function(tabla){
 }
 
 cuadrantes<-function(tabla){
-  tabla_fin=as.data.frame(seq(1,10)) 
+  tabla_fin=as.data.frame(seq(1,10))
   for (i in 1:ncol(tabla)){
     caso_maximo=which(tabla[,i]==max(tabla[,i]))
     if (length(caso_maximo)>1){
@@ -1070,9 +1070,9 @@ cuadrantes<-function(tabla){
 }
 
 
-final=cuadrantes(final)
+#final=cuadrantes(final)
 
-final=warning_tabla(final)
+#final=warning_tabla(final)
 
 
 
@@ -1081,12 +1081,12 @@ con <- dbConnect(drv     = RMySQL::MySQL(),
                 password = "macrowise",
                 host     = "macro.c8rej9nslv8v.us-east-2.rds.amazonaws.com",
                 port     = 3306,
-		dbname   = "macrowise")  
+		dbname   = "macrowise")
 
-# for (i in 1:length(lista_accion)){
-#   dbWriteTable(con,vec[i], lista_accion[[i]])
-# } 
+for (i in 1:length(lista_accion)){
+   dbWriteTable(con,vec[i], lista_accion[[i]])
+}
 
 
-dbWriteTable(con,"spy_kafka", final)
+#dbWriteTable(con,"spy_kafka", final)
 dbDisconnect(con)
