@@ -985,7 +985,7 @@ todos_numero<-function(vec,numero){
 tabla=read_xlsx("spy.xlsx")
 vec<-as.vector(tabla$TICKERS)
 
-tablas_original<-todos_numero(vec[201:300],1)
+tablas_original<-todos_numero(vec[301:400],1)
 
 lista_accion<-normal_indicador(tablas_original)
 
@@ -1084,7 +1084,7 @@ con <- dbConnect(drv     = RMySQL::MySQL(),
 		dbname   = "macrowise")
 
 for (i in 1:length(lista_accion)){
-   dbWriteTable(con,paste0(vec[i+200],"_spy"), lista_accion[[i]])
+   dbWriteTable(con,paste0(vec[i+300],"_spy"), lista_accion[[i]])
 }
 
 
