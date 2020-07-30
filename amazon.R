@@ -985,7 +985,7 @@ todos_numero<-function(vec,numero){
 tabla=read_xlsx("spy.xlsx")
 vec<-as.vector(tabla$TICKERS)
 
-tablas_original<-todos_numero(vec,1)
+tablas_original<-todos_numero(vec[1:100],1)
 
 lista_accion<-normal_indicador(tablas_original)
 
