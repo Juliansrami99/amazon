@@ -1083,7 +1083,7 @@ con <- dbConnect(drv     = RMySQL::MySQL(),
                 port     = 3306,
 		dbname   = "macrowise")
 
-for (i in 1:length(lista_accion)){
+for (i in 9:length(lista_accion)){
    dbWriteTable(con,paste0(vec[i],"_spy"), lista_accion[[i]])
 }
 
