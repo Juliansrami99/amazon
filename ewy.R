@@ -978,9 +978,11 @@ con <- dbConnect(drv     = RMySQL::MySQL(),
                  host     = "macro.c8rej9nslv8v.us-east-2.rds.amazonaws.com",
                  port     = 3306,
                  dbname   = "macrowise")
+dbSendQuery(con, 'set character set "utf8"')
+dbSendQuery(con, 'SET NAMES utf8')
+
 
 for (i in 1:length(lista_accion)){
-  dbSendQuery(con, "SET GLOBAL local_infile = true;")
   dbWriteTable(con,paste0(vec[i],"_ewy"), lista_accion[[i]])
 }
 
