@@ -966,7 +966,7 @@ todos_numero<-function(vec,numero){
 
 ########### Proceso ###########
 tabla=read_xlsx("ewy.xlsx")
-nombres<-as.vector(tabla$Name)
+nombres<-as.vector(tabla$NAME)
 vec<-as.vector(tabla$TICKERS)
 
 tablas_original<-todos_numero(vec,1)
