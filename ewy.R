@@ -965,7 +965,7 @@ todos_numero<-function(vec,numero){
 
 
 ########### Proceso ###########
-tabla=read_xlsx("ewh.xlsx")
+tabla=read_xlsx("ewy.xlsx")
 vec<-as.vector(tabla$TICKERS)
 
 tablas_original<-todos_numero(vec,1)
@@ -981,13 +981,9 @@ con <- dbConnect(drv     = RMySQL::MySQL(),
 
 for (i in 1:length(lista_accion)){
   dbSendQuery(con, "SET GLOBAL local_infile = true;")
-  dbWriteTable(con,paste0(vec[i],"_ewh"), lista_accion[[i]])
+  dbWriteTable(con,paste0(vec[i],"_ewy"), lista_accion[[i]])
 }
 
 
 #dbWriteTable(con,"spy_kafka", final)
 dbDisconnect(con)
-
-
-
-
