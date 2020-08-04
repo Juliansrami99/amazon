@@ -983,7 +983,7 @@ dbSendQuery(con, 'set character set "utf8"')
 dbSendQuery(con, 'SET NAMES utf8')
 
 for (i in 1:length(lista_accion)){
-  dbWriteTable(con,paste0(nombres[i],"_industries"), lista_accion[[i]])
+  dbWriteTable(con,paste0(vec[i],"_ind"), lista_accion[[i]])
 }
 
 
