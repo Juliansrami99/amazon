@@ -966,6 +966,7 @@ todos_numero<-function(vec,numero){
 
 ########### Proceso ###########
 tabla=read_xlsx("ewy.xlsx")
+nombres<-as.vector(tabla$Name)
 vec<-as.vector(tabla$TICKERS)
 
 tablas_original<-todos_numero(vec,1)
@@ -983,7 +984,7 @@ dbSendQuery(con, 'SET NAMES utf8')
 
 
 for (i in 1:length(lista_accion)){
-  dbWriteTable(con,paste0(vec[i],"_ewy"), lista_accion[[i]])
+  dbWriteTable(con,paste0(nombres[i],"_ewy"), lista_accion[[i]])
 }
 
 
