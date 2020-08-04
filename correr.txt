@@ -69,7 +69,7 @@ done
 ########### Comnaod para descargar bases en especifico #################
 
 
-for tb in $(mysql -u macro --password=macrowise --host=macro.c8rej9nslv8v.us-east-2.rds.amazonaws.com macrowise --port=3306 -e "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.tables WHERE TABLE_NAME LIKE '%_spy';"); do
+for tb in $(mysql -u macro --password=macrowise --host=macro.c8rej9nslv8v.us-east-2.rds.amazonaws.com macrowise --port=3306 -e "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.tables WHERE TABLE_NAME LIKE '%_ewj';"); do
    $(mysql -B -u macro --password=macrowise --host=macro.c8rej9nslv8v.us-east-2.rds.amazonaws.com macrowise --port=3306 -e "SELECT * FROM $tb;" \
  | sed "s/\"/\"\"/g;s/'/\'/;s/\t/\",\"/g;s/^/\"/;s/$/\"/;s/\n//g" > $tb.csv)
 
@@ -90,7 +90,7 @@ mysql -u macro -p --host=macro.c8rej9nslv8v.us-east-2.rds.amazonaws.com macrowis
 ###### Conexion a S3 #######
 sudo aws s3 cp spy_kafka.csv s3://macrowisecolombia/bases/regimen_change/
 
-sudo aws s3 sync prueba s3://macrowisecolombia/bases/regimen_change/Mundo/
+sudo aws s3 sync ewj s3://macrowisecolombia/bases/regimen_change/ewj/
 
 wget s3://macrowisecolombia/bases/MSFT.csv
           
