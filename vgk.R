@@ -969,7 +969,7 @@ tabla=read_xlsx("vgk.xlsx")
 nombres<-as.vector(tabla$NAME)
 vec<-as.vector(tabla$TICKERS)
 
-tablas_original<-todos_numero(vec,1)
+tablas_original<-todos_numero(vec[1:300],1)
 
 lista_accion<-normal_indicador(tablas_original)
 
