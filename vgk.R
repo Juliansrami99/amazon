@@ -969,7 +969,7 @@ tabla=read_xlsx("vgk.xlsx")
 nombres<-as.vector(tabla$NAME)
 vec<-as.vector(tabla$TICKERS)
 
-tablas_original<-todos_numero(vec[1:300],1)
+tablas_original<-todos_numero(vec[301:600],1)
 
 lista_accion<-normal_indicador(tablas_original)
 
@@ -983,7 +983,7 @@ dbSendQuery(con, 'set character set "utf8"')
 dbSendQuery(con, 'SET NAMES utf8')
 
 for (i in 1:length(lista_accion)){
-  dbWriteTable(con,paste0(nombres[i],"_vgk"), lista_accion[[i]])
+  dbWriteTable(con,paste0(nombres[i+300],"_vgk"), lista_accion[[i]])
 }
 
 
