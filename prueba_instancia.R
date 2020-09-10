@@ -1,6 +1,0 @@
-library(aws.s3)
-Sys.setenv(
-  "AWS_ACCESS_KEY_ID" = "AKIAXJ2M26ZHAC52NNPE",
-  "AWS_SECRET_ACCESS_KEY" = "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",
-  "AWS_DEFAULT_REGION" = "us-east-1"
-)
