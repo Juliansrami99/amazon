@@ -90,6 +90,11 @@ mysql -u macro -p --host=macro.c8rej9nslv8v.us-east-2.rds.amazonaws.com macrowis
 ###### Conexion a S3 #######
 sudo aws s3 cp spy_kafka.csv s3://macrowisecolombia/bases/regimen_change/
 
+sudo aws s3 sync ewh s3://macrowisecolombia/bases/regimen_change/ewh/
+sudo aws s3 sync ewj s3://macrowisecolombia/bases/regimen_change/ewj/
+sudo aws s3 sync spy s3://macrowisecolombia/bases/regimen_change/spy/
+sudo aws s3 sync ewj s3://macrowisecolombia/bases/regimen_change/ewj/
+sudo aws s3 sync ewj s3://macrowisecolombia/bases/regimen_change/ewj/
 sudo aws s3 sync ewj s3://macrowisecolombia/bases/regimen_change/ewj/
 
 wget s3://macrowisecolombia/bases/MSFT.csv
